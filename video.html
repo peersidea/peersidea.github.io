@@ -35,13 +35,14 @@
     skylink.on('mediaAccessStopped', function(isScreensharing) {
       if(isScreensharing) {
      	alert("stop sharing!");
-     	
+     	sharescreen = false;
       }
     });
     
     skylink.on('mediaAccessSuccess', function(stream, isScreensharing) {
       if(isScreensharing) 
       {
+      	sharescreen = true;
         alert("share start!");
       }
     });
@@ -53,7 +54,7 @@
       if (error) {
         document.getElementById('status').innerHTML = 'Failed retrieval for room information.<br>Error: ' + (error.error.message || error.error);
       } else {
-           document.getElementById('status').innerHTML = 'Room information has been loaded. Room is ready for user to join.';
+        document.getElementById('status').innerHTML = 'Room information has been loaded. Room is ready for user to join.';
         document.getElementById('start').style.display = 'block';
       }
     });
@@ -89,6 +90,7 @@
     else
     {
       skylink.stopScreen();
+      sharescreen = false;
     }
   }
     
