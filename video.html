@@ -5,6 +5,7 @@
 	<script src="//cdn.temasys.com.sg/skylink/skylinkjs/0.6.x/skylink.complete.js"></script>
 	<script>
     var skylink = new Skylink();
+    var sharescreen = false;
     skylink.setLogLevel(4);
     skylink.on('peerJoined', function(peerId, peerInfo, isSelf) {
       if(isSelf) return; // We already have a video element for our video and don't need to create a new one.
@@ -29,6 +30,20 @@
     skylink.on('mediaAccessSuccess', function(stream) {
       var vid = document.getElementById('myvideo');
       attachMediaStream(vid, stream);
+    });
+    
+    skylink.on('mediaAccessStopped', function(isScreensharing) {
+      if(isScreensharing) {
+     	alert("stop sharing!");
+     	
+      }
+    }
+    
+    skylink.on('mediaAccessSuccess', function(stream, isScreensharing) {
+      if(isScreensharing) 
+      {
+        alert("share start!");
+      }
     });
     
     skylink.init({
@@ -58,6 +73,23 @@
         }
       });
     }
+    
+    function screenShare() {
+    
+    if(!sharescreen) 
+    {
+      skylink.shareScreen(function(error, success) {
+        if (error) 
+        {
+          console.log(error);
+        }
+      });      
+    }
+    else
+    {
+      skylink.stopScreen();
+    }
+  }
     
     /* Helper functions */
     
@@ -89,6 +121,7 @@
     <button  onclick="start(event)">Start</button><br/>
     <video id="myvideo" autoplay muted></video>
   </div>
+  <button onclick="screenShare()">Share/Unshare Screen</button><br/>
   
 </body>
 </html>
