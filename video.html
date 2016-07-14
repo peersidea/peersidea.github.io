@@ -76,23 +76,20 @@
     }
     
     function screenShare() {
-    
-    if(!sharescreen) 
-    {
+   
       skylink.shareScreen(function(error, success) {
-      	sharescreen = true;
         if (error) 
         {
           console.log(error);
         }
       });      
+    
+      
     }
-    else
-    {
-      skylink.stopScreen();
-      sharescreen = false;
+    
+    function screenunShare() {
+    	skylink.stopScreen();
     }
-  }
     
     /* Helper functions */
     
@@ -124,7 +121,8 @@
     <button  onclick="start(event)">Start</button><br/>
     <video id="myvideo" autoplay muted></video>
   </div>
-  <button onclick="screenShare()">Share/Unshare Screen</button><br/>
+  <button onclick="screenShare()">Share Screen</button><br/>
+  <button onclick="screenunShare()">Unshare Screen</button><br/>
   
 </body>
 </html>
