@@ -79,6 +79,7 @@
     if(!sharescreen) 
     {
       skylink.shareScreen(function(error, success) {
+      	sharescreen = true;
         if (error) 
         {
           console.log(error);
